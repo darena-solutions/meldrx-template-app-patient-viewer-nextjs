@@ -1,2 +1,7 @@
-# meldrx-template-app-patient-viewer-nextjs
-Patient Viewer MeldRx Template App using NextJS
+# MeldRx Template App - Patient Viewer (React)
+
+## Getting Started
+- Update `.env` accordingly
+- `npm install`
+- `npm run dev`
+- In a fresh browser, navigate to `http://localhost:8100`

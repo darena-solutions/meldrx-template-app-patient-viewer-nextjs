@@ -1,0 +1,117 @@
+/**
+* ALLERGIES
+**/
+
+.AllergyIntoleranceView_container {
+    > div {
+      @apply px-6 pt-4;
+  
+      .AllergyIntoleranceView_code {
+        @apply font-bold text-xl mb-2;
+      }
+  
+      .AllergyIntoleranceView_recordedDate {
+        @apply text-base;
+      }
+    }
+  }
+  
+  .AllergyIntoleranceReactionView_container {
+      @apply px-6 pt-2 pb-4;
+  }
+  
+  .AllergyIntoleranceReactionView_manifestation { 
+    display: inline-block;
+  }
+  
+  .AllergyIntoleranceReactionView_description {
+    display: none;
+  }
+  
+  .AllergyIntoleranceReactionView_severity {
+    @apply capitalize pl-1;
+  }
+  
+  .AllergyIntoleranceReactionView_severity:before { content: '('; }
+  .AllergyIntoleranceReactionView_severity:after { content: ')'; }
+  
+  /**
+  * CODING
+  **/
+  
+  .CodingSelector {
+    @apply capitalize;
+  }
+  
+  .ConditionView_container {
+    > div {
+      @apply px-6 py-4;
+  
+      .ConditionView_code {
+        @apply font-bold text-xl mb-2;
+      }
+  
+      .ConditionView_content {
+        @apply text-base;
+  
+        .ConditionView_clinicalStatus {
+          @apply capitalize text-base;
+        }
+    
+        .ConditionView_onsetDate {
+          @apply text-base;
+        }
+    
+        .ConditionView_recordedDate {
+          @apply text-base;
+        }
+      }
+    }
+  }
+  
+  .ImmunizationView_container {
+    > div {
+      @apply px-6 py-4;
+  
+      .ImmunizationView_vaccineCode {
+        @apply font-bold text-xl mb-2;
+      }
+  
+      .ImmunizationView_status {
+        @apply text-base;
+      }
+  
+      .ImmunizationView_occurrenceDateTime {
+        @apply text-base;
+      }
+    }
+  }
+  
+  .PatientHeader_container { 
+    @apply w-screen p-5 max-w-sm rounded overflow-hidden;
+  
+    .PatientHeader_sexAgeDOB {
+      @apply flex items-center;
+    }
+  
+    .PatientHeader_patientId {
+      @apply flex items-center;
+      > div {
+        @apply w-1/3 flex-grow;
+  
+        > label {
+          @apply text-xs;
+        }
+      }
+    }
+  
+    .PatientHeader_address {
+      @apply pt-5;
+  
+      > label { @apply font-bold; }
+    }
+  }
+  
+  .SexAgeDOB_age { @apply text-sm; }
+  .SexAgeDOB_dob { @apply text-sm; }
+  .SexAgeDOB_gender { @apply text-sm capitalize; }
