@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { createStyles, getStylesRef, Navbar, Text } from '@mantine/core';
-import { IconCalendarEvent, IconFlame, IconSettings, IconId, IconVaccine, IconHeartbeat, IconMicroscope, IconArchive, IconVirus, IconPlant } from '@tabler/icons-react';
+import { IconCalendarEvent, IconFlame, IconSettings, IconId, IconVaccine, IconUsersGroup, IconHeartbeat, IconMicroscope, IconArchive, IconVirus, IconPlant } from '@tabler/icons-react';
 import { Url } from 'next/dist/shared/lib/router/router';
 
 // https://ui.mantine.dev/category/navbars
@@ -84,6 +84,7 @@ export default function AppNavbar({ closeNavbar }: AppNavbarProps): JSX.Element 
     { display: "Allergies",         href: "/patient-sphere/patient/allergies",       icon: <IconPlant className={classes.linkIcon} /> },
     { display: "Conditions",        href: "/patient-sphere/patient/conditions",      icon: <IconVirus className={classes.linkIcon} /> },
     { display: "Immunizations",     href: "/patient-sphere/patient/immunizations",   icon: <IconVaccine className={classes.linkIcon} /> },
+    { display: "Family History",    href: "/patient-sphere/patient/family-history",  icon: <IconUsersGroup className={classes.linkIcon} /> },
   ];
 
   const tools: IMenuItem[] = [
