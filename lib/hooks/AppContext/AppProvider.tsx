@@ -13,6 +13,9 @@ const DEFAULT_APP_CONTEXT: IAppContext = {
     ehrType: "",
     patientFhirId: "",
     patient: null,
+    encounterId: "",
+    fhirUser: "",
+    user: null,
     fhirUrl: "",
     fhirClient: null,
     setAccessToken: (accessToken: string) => {},
@@ -20,6 +23,9 @@ const DEFAULT_APP_CONTEXT: IAppContext = {
     setEhrType: (ehrType: string) => {},
     setPatientFhirId: (patientFhirId: string) => {},
     setPatient: (patient: any) => {},
+    setEncounterId: (encounterId: string) => {},
+    setFhirUser: (fhirUser: string) => {},
+    setUser: (user: any) => {},
     setFhirUrl: (fhirUrl: string) => {},
     setFhirClient: (fhirClient: Client | null) => {}
 }
@@ -30,13 +36,16 @@ export function AppProvider(props: IAppProviderProps) {
     const [ehrType, setEhrType] = useState<EHRTypes | "">(DEFAULT_APP_CONTEXT.ehrType);
     const [patientFhirId, setPatientFhirId] = useState<string>(DEFAULT_APP_CONTEXT.patientFhirId);
     const [patient, setPatient] = useState<any>(DEFAULT_APP_CONTEXT.patient);
+    const [encounterId, setEncounterId] = useState<string>(DEFAULT_APP_CONTEXT.encounterId);
+    const [fhirUser, setFhirUser] = useState<string>(DEFAULT_APP_CONTEXT.fhirUser);
+    const [user, setUser] = useState<any>(DEFAULT_APP_CONTEXT.user);
     const [fhirUrl, setFhirUrl] = useState<string>(DEFAULT_APP_CONTEXT.fhirUrl);
     const [fhirClient, setFhirClient] = useState<Client | null>(DEFAULT_APP_CONTEXT.fhirClient);
 
     return (
         <AppContext.Provider value={{
-            accessToken, idToken, ehrType, patientFhirId, patient, fhirUrl, fhirClient,
-            setAccessToken, setIdToken, setEhrType, setPatientFhirId, setPatient, setFhirUrl, setFhirClient
+            accessToken, idToken, ehrType, patientFhirId, patient, encounterId, fhirUser, user, fhirUrl, fhirClient,
+            setAccessToken, setIdToken, setEhrType, setPatientFhirId, setPatient, setEncounterId, setFhirUser, setUser, setFhirUrl, setFhirClient
         }}>
             {props.children}
         </AppContext.Provider>

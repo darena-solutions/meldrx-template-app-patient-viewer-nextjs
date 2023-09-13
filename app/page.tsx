@@ -39,6 +39,7 @@ export default function Page() {
               {launchOptions.map((launchConfiguration: IMeldRxLaunchData, index: number) => {
                   return (
                     <LaunchButton
+                      key={index}
                       label="Launch with MeldRx"
                       color="green"
                       onClick={() => onLaunchClick(launchConfiguration)}

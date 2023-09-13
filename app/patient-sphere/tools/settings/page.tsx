@@ -2,7 +2,7 @@
 
 import React, { useState, useContext } from "react";
 import * as r4 from "fhir/r4";
-import { Container, LoadingOverlay, Text, Grid, } from "@mantine/core";
+import { Container, LoadingOverlay, Text, Grid, Textarea, Space, } from "@mantine/core";
 import { AppContext } from "@/lib/hooks/AppContext/AppContext";
 
 export interface IPageProps { }
@@ -37,6 +37,12 @@ export default function Page(props: IPageProps) {
                 <Grid.Col span={3}><Text align="left" weight="bold">Patient:</Text></Grid.Col>
                 <Grid.Col span={9}><Text>{appContext.patientFhirId}</Text></Grid.Col>
 
+                <Grid.Col span={3}><Text align="left" weight="bold">Encounter:</Text></Grid.Col>
+                <Grid.Col span={9}><Text>{appContext.encounterId}</Text></Grid.Col>
+
+                <Grid.Col span={3}><Text align="left" weight="bold">User:</Text></Grid.Col>
+                <Grid.Col span={9}><Text>{appContext.fhirUser}</Text></Grid.Col>
+
                 <Grid.Col span={3}><Text align="left" weight="bold">FHIR URL:</Text></Grid.Col>
                 <Grid.Col span={9}><Text>{appContext.fhirUrl}</Text></Grid.Col>
 
@@ -44,6 +50,23 @@ export default function Page(props: IPageProps) {
                 <Grid.Col span={9}><Text>{sTokenExpiration}</Text></Grid.Col>
             </Grid>
 
+            {/* Patient */}
+            {!!appContext.patient &&
+                <>
+                    <Textarea label="Patient" minRows={20}>{JSON.stringify(appContext.patient, null, 2)}</Textarea>
+                    <Space h="md" />
+                </>
+            }
+
+            {/* User */}
+            {!!appContext.user &&
+                <>
+                <Textarea label="User" minRows={20}>{JSON.stringify(appContext.user, null, 2)}</Textarea>
+                <Space h="md" />
+                </>
+            }
+
+            <div style={{ paddingBottom: "200px" }} />
         </Container>
     );
 }

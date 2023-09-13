@@ -31,6 +31,11 @@ export default function Page(props: IPageProps) {
                 appContext.setPatient(patient);
             }
 
+            if (appContext.fhirUser !== null && appContext.user === null) {
+                const user = await appContext.fhirClient.request(appContext.fhirUser);
+                appContext.setUser(user);
+            }
+
             setIsLoading(false);
         }
 

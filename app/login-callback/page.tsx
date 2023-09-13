@@ -25,6 +25,12 @@ export default function Page(props: IPage) {
                 if (client.patient.id) { appContext.setPatientFhirId(client.patient.id ?? ""); }
                 else if (client.state.tokenResponse?.patient) { appContext.setPatientFhirId(client.state.tokenResponse.patient ?? "");}
 
+                // Try to determine encounter ID...
+                if (client.encounter.id) { appContext.setEncounterId(client.encounter.id ?? ""); }
+
+                // Try to determine current user...
+                if (client.user.fhirUser) { appContext.setFhirUser(client.user.fhirUser ?? ""); }
+
                 // Save some data from the response...
                 if (client.state.serverUrl) { appContext.setFhirUrl(client.state.serverUrl ?? ""); }
                 appContext.setAccessToken(client.state.tokenResponse?.access_token ?? "");
