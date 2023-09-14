@@ -32,8 +32,10 @@ export default function Page(props: IPageProps) {
             }
 
             if (appContext.fhirUser !== null && appContext.user === null) {
-                const user = await appContext.fhirClient.request(appContext.fhirUser);
-                appContext.setUser(user);
+                try {
+                    const user = await appContext.fhirClient.request(appContext.fhirUser);
+                    appContext.setUser(user);
+                } catch(e: any) { }
             }
 
             setIsLoading(false);
