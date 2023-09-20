@@ -1,18 +1,18 @@
 import React from "react";
-import { Patient } from "@/lib/utils/fhir/Patient";
+import { Card, Text } from "@mantine/core";
 import HumanNameView from "./HumanNameView";
 import AddressView from "./AddressView";
-import { getAgeFromDOB } from "@/lib/utils/DateTimeUtils";
-import { Card, Text } from "@mantine/core";
+import * as r4 from "fhir/r4";
+import { Resources, DateTimeUtils } from "@meldrx/meldrx-fhir-client";
 
-export interface IPatientHeaderProps { patient?: Patient };
+export interface IPatientHeaderProps { patient?: r4.Patient };
 export default function PatientHeader(props: IPatientHeaderProps) {
     // Check if data is available...
     if (!props.patient) { return <div />; }
     if (!props.patient.name) { return <div />; }
 
-    const officialName = Patient.getOfficialName(props.patient);
-    const homeAddress = Patient.getHomeAddress(props.patient);
+    const officialName = Resources.r4.Patient.getOfficialName(props.patient);
+    const homeAddress = Resources.r4.Patient.getHomeAddress(props.patient);
 
     return (
         <Card shadow="lg">
@@ -42,7 +42,7 @@ export default function PatientHeader(props: IPatientHeaderProps) {
 }
 
 
-interface ISexAgeDOBProps { patient?: Patient };
+interface ISexAgeDOBProps { patient?: r4.Patient };
 function SexAgeDOB(props: ISexAgeDOBProps) {
     // Check if data is available...
     if (!props.patient) { return <div />; }
@@ -50,8 +50,8 @@ function SexAgeDOB(props: ISexAgeDOBProps) {
     // If patient has DOB, build that element...
     let elAgeDOB = null;
     if (props.patient.birthDate) {
-        const dob = Patient.getBirthDate(props.patient);
-        const age = (dob) ? getAgeFromDOB(dob) : "Unknown";
+        const dob = Resources.r4.Patient.getBirthDate(props.patient);
+        const age = (dob) ? DateTimeUtils.getAgeFromDOB(dob) : "Unknown";
 
         elAgeDOB = (
             <>{', '}

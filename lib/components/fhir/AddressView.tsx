@@ -1,7 +1,8 @@
 import React from 'react';
-import { Address } from '@/lib/utils/fhir/Address';
+import * as r4 from "fhir/r4";
+import { Resources } from "@meldrx/meldrx-fhir-client";
 
-export interface IAddressViewProps { address?: Address };
+export interface IAddressViewProps { address?: r4.Address };
 export function AddressView(props: IAddressViewProps) {
     // Check if data is available...
     if (!props.address) { return <div />; }
@@ -15,11 +16,11 @@ export function AddressView(props: IAddressViewProps) {
 }
 
 // Returns a <div> containing the city/state data...
-function getCityStateZipElement(address: Address): JSX.Element
+function getCityStateZipElement(address: r4.Address): JSX.Element
 {
     return (
         <div className="AddressView_cityStateContainer">
-            {Address.toString(address)}
+            {Resources.r4.Address.toString(address)}
         </div>
     );
 }

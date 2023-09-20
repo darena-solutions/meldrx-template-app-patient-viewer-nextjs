@@ -1,7 +1,8 @@
 import React from 'react';
-import { HumanName } from '@/lib/utils/fhir/HumanName';
+import * as r4 from "fhir/r4";
+import { Resources } from "@meldrx/meldrx-fhir-client";
 
-export interface IHumanNameViewProps { humanName?: HumanName };
+export interface IHumanNameViewProps { humanName?: r4.HumanName };
 export function HumanNameView(props: IHumanNameViewProps) {
     // Check if data is available...
     if (!props.humanName) { return <div />; }
@@ -13,10 +14,10 @@ export function HumanNameView(props: IHumanNameViewProps) {
     );
 }
 
-function formatName(name?: HumanName): string {
+function formatName(name?: r4.HumanName): string {
     // Check if name exists...
     if (!name) { return "Unknown"; }
-    return HumanName.toString(name);
+    return Resources.r4.HumanName.toString(name);
 }
 
 export default HumanNameView;

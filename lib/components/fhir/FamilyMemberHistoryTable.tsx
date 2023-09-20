@@ -1,6 +1,6 @@
-import { CodeableConcept } from '@/lib/utils/fhir/CodeableConcept';
 import React from 'react';
 import { useTable, useSortBy, Column } from "react-table";
+import { Resources } from "@meldrx/meldrx-fhir-client";
 
 /**
  * Definition of columns for the table
@@ -24,10 +24,10 @@ export interface ITableProps {
 export default function FamilyMemberHistoryTable({ data }: ITableProps) {
     // Sort a column by codeable concept value...
     const sortCode = React.useMemo(() => {
-        return (rowA: any, rowB: any, columnId: string, desc: boolean) => { 
+        return (rowA: any, rowB: any, columnId: string, desc: boolean) => {
             const cca = rowA.values[columnId].props.codeableConcept;
             const ccb = rowB.values[columnId].props.codeableConcept;
-            return CodeableConcept.sortByDisplayText(cca, ccb);
+            return Resources.r4.CodeableConcept.sortByDisplayText(cca, ccb);
         };
     }, []);
 

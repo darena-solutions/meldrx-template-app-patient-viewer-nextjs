@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import * as r4 from "fhir/r4";
-import { Modal, Checkbox, Group, Space, TextInput, Center, Button, Select } from '@mantine/core';
-import { AdministrativeGender, FamilyMemberHistory, FamilyMemberHistory_Relationship } from "@/lib/utils/fhir/FamilyMemberHistory";
-import CodingSelector from "./CodingSelector";
+import { Modal, Checkbox, Group, Space, TextInput, Button, Select } from '@mantine/core';
+import { Resources } from "@meldrx/meldrx-fhir-client";
 import QuantityEdit from "./QuantityEdit";
 import AgeRangeEdit from "./AgeRangeEdit";
 import { AnnotationEdit } from "./AnnotationEdit";
@@ -19,7 +18,7 @@ export interface IFamilyMemberHistoryEditDialogProps {
 }
 
 function getDefault(patientId: string): r4.FamilyMemberHistory {
-    return new FamilyMemberHistory(patientId, "FamilyMember");
+    return new Resources.r4.FamilyMemberHistory(patientId, "FamilyMember");
 }
 
 function copy(familyMemberHistory: r4.FamilyMemberHistory): r4.FamilyMemberHistory {
@@ -36,14 +35,14 @@ export default function FamilyMemberHistoryEditDialog(props: IFamilyMemberHistor
 
     // Returns the "key" in the "FamilyMemberHistory_Relationship" object that matches the given relationship...
     const getFamilyMemberHistoryRelationshipKeyFromRelationship = (relationship: r4.CodeableConcept | undefined): string | undefined => {
-        const key = Object.keys(FamilyMemberHistory_Relationship).find(x =>
-            ((FamilyMemberHistory_Relationship as any)[x] as r4.Coding).code === props.familyMemberHistory?.relationship?.coding?.[0].code)
+        const key = Object.keys(Resources.r4.FamilyMemberHistory_Relationship).find(x =>
+            ((Resources.r4.FamilyMemberHistory_Relationship as any)[x] as r4.Coding).code === props.familyMemberHistory?.relationship?.coding?.[0].code)
         return key;
     }
 
     const getSexKeyFromAdministrativeGender = (gender: r4.CodeableConcept | undefined): string | undefined => {
-        const key = Object.keys(AdministrativeGender).find(x =>
-            ((AdministrativeGender as any)[x] as r4.Coding).code === props.familyMemberHistory?.sex?.coding?.[0].code);
+        const key = Object.keys(Resources.r4.AdministrativeGender).find(x =>
+            ((Resources.r4.AdministrativeGender as any)[x] as r4.Coding).code === props.familyMemberHistory?.sex?.coding?.[0].code);
         return key;
     }
 
@@ -65,14 +64,14 @@ export default function FamilyMemberHistoryEditDialog(props: IFamilyMemberHistor
                         <Select label="Relationship" placeholder="Relationship" searchable
                             value={getFamilyMemberHistoryRelationshipKeyFromRelationship(localFamilyMember.relationship)}
                             data={
-                                Object.keys(FamilyMemberHistory_Relationship).map((key) => {
+                                Object.keys(Resources.r4.FamilyMemberHistory_Relationship).map((key) => {
                                     const value = key;
                                     const label = key;
                                     return { value, label };
                                 })
                             }
                             onChange={(key: string) => {
-                                const code = (FamilyMemberHistory_Relationship as any)[key] as r4.Coding;
+                                const code = (Resources.r4.FamilyMemberHistory_Relationship as any)[key] as r4.Coding;
                                 const cc: r4.CodeableConcept = { coding: [code] };
                                 setLocalFamilyMember({ ...localFamilyMember, relationship: cc });
                             }}
@@ -84,14 +83,14 @@ export default function FamilyMemberHistoryEditDialog(props: IFamilyMemberHistor
                             <Select placeholder="Sex"
                                 value={getSexKeyFromAdministrativeGender(localFamilyMember.sex)}
                                 data={
-                                    Object.keys(AdministrativeGender).map((key) => {
+                                    Object.keys(Resources.r4.AdministrativeGender).map((key) => {
                                         const value = key;
                                         const label = key;
                                         return { value, label };
                                     })
                                 }
                                 onChange={(key: string) => {
-                                    const code = (AdministrativeGender as any)[key] as r4.Coding;
+                                    const code = (Resources.r4.AdministrativeGender as any)[key] as r4.Coding;
                                     const cc: r4.CodeableConcept = { coding: [code] };
                                     setLocalFamilyMember({ ...localFamilyMember, sex: cc });
                                 }}

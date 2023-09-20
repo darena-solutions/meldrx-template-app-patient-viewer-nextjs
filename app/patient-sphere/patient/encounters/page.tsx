@@ -6,7 +6,7 @@ import { Container, LoadingOverlay, Title, Table as MantineTable } from "@mantin
 import Head from "next/head";
 import { useTable, useSortBy, Column } from "react-table";
 import { AppContext } from "@/lib/hooks/AppContext/AppContext";
-import { CodeableConcept } from "@/lib/utils/fhir/CodeableConcept";
+import { Resources } from "@meldrx/meldrx-fhir-client";
 import CodeableConceptView from "@/lib/components/fhir/CodeableConceptView";
 import DateView from "@/lib/components/fhir/DateView";
 
@@ -45,10 +45,10 @@ export default function Page(props: IPageProps) {
     }, []);
 
     const sortEncounterType = React.useMemo(() => {
-        return (rowA: any, rowB: any, columnId: string, desc: boolean) => { 
+        return (rowA: any, rowB: any, columnId: string, desc: boolean) => {
             const cca = rowA.values[columnId].props.codeableConcept;
             const ccb = rowB.values[columnId].props.codeableConcept;
-            return CodeableConcept.sortByDisplayText(cca, ccb);
+            return Resources.r4.CodeableConcept.sortByDisplayText(cca, ccb);
         };
     }, []);
 

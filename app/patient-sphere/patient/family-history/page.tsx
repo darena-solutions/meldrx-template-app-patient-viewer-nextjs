@@ -2,18 +2,15 @@
 
 import React, { useState, useEffect, useCallback, useContext } from "react";
 import * as r4 from "fhir/r4";
-import { Card, Container, LoadingOverlay, Title, Text, Button, Space, TextInput, Checkbox } from "@mantine/core";
+import { Container, LoadingOverlay, Title, Text, Button, Space, TextInput, Checkbox } from "@mantine/core";
 import { IconRefresh } from "@tabler/icons-react";
 import Head from "next/head";
+import { Resources } from "@meldrx/meldrx-fhir-client";
 import { AppContext } from "@/lib/hooks/AppContext/AppContext";
-import { AdministrativeGender, FamilyMemberHistory } from "@/lib/utils/fhir/FamilyMemberHistory";
-import { Age } from "@/lib/utils/fhir/Age";
-import { Range } from "@/lib/utils/fhir/Range";
 import { fhirclient } from "fhirclient/lib/types";
 import FamilyMemberHistoryTable, { FamilyMemberHistoryTableColumns } from "@/lib/components/fhir/FamilyMemberHistoryTable";
 import CodeableConceptView from "@/lib/components/fhir/CodeableConceptView";
 import FamilyMemberHistoryEditDialog from "@/lib/components/fhir/FamilyMemberHistoryEditDialog";
-import { CodeableConcept } from "@/lib/utils/fhir/CodeableConcept";
 
 export interface IPageProps { }
 export default function Page(props: IPageProps) {
@@ -80,10 +77,10 @@ export default function Page(props: IPageProps) {
         setIsLoading(true);
 
         const patientId = appContext.patientFhirId;
-        const familyMember = new FamilyMemberHistory(patientId, "Father");  // TODO: Pass relationship
+        const familyMember = new Resources.r4.FamilyMemberHistory(patientId, "Father");  // TODO: Pass relationship
         familyMember.name = "John";
-        familyMember.sex = AdministrativeGender.Male;
-        familyMember.ageAge = Age.fromYears(60);
+        familyMember.sex = Resources.r4.AdministrativeGender.Male;
+        familyMember.ageAge = Resources.r4.Age.fromYears(60);
         await createFamilyMember(familyMember);
 
         await loadFamilyHistory();
@@ -153,11 +150,11 @@ export default function Page(props: IPageProps) {
 
             let age = "";
             if (familyMemberHistory.ageAge) { age = familyMemberHistory.ageAge.value?.toString() || ""; }
-            else if (familyMemberHistory.ageRange) { age = Range.toString(familyMemberHistory.ageRange); }
+            else if (familyMemberHistory.ageRange) { age = Resources.r4.Range.toString(familyMemberHistory.ageRange); }
 
             let sex = "";
             if (familyMemberHistory.sex?.text) { sex = familyMemberHistory.sex?.text; }
-            else if (familyMemberHistory.sex) { sex = CodeableConcept.getDisplayText(familyMemberHistory.sex); }
+            else if (familyMemberHistory.sex) { sex = Resources.r4.CodeableConcept.getDisplayText(familyMemberHistory.sex); }
 
             return {
                 delete: <Button color="red" variant="subtle" onClick={() => onDeleteFamilyMemberPress(familyMemberHistory)}>Delete</Button>,
