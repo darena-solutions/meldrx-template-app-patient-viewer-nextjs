@@ -30,10 +30,14 @@ export default function PatientHeader(props: IPatientHeaderProps) {
                         </div>
                     </div>
 
-                    <div className="PatientHeader_address">
-                        <label>Address</label>
-                    </div>
-                    <AddressView address={homeAddress} />
+                    {homeAddress &&
+                    <>
+                        <div className="PatientHeader_address">
+                            <label>Address</label>
+                        </div>
+                        <AddressView address={homeAddress} />
+                    </>
+                    }
 
                 </div>
             </div>
