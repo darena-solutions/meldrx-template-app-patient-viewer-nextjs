@@ -21,7 +21,7 @@ export default function Page(props: IPageProps) {
             setIsLoading(true);
 
             const patientId = appContext.patientFhirId;
-            const conditions = await appContext.fhirClient.request(`Condition?patient=${patientId}&category=problem-list-item`, { flat: true });
+            const conditions = await appContext.fhirClient.request(`Condition?patient=${patientId}&category=problem-list-item&clinical-status=active`, { flat: true });
             setConditions(conditions);
 
             setIsLoading(false);
