@@ -77,10 +77,16 @@ export default function Page(props: IPageProps) {
         setIsLoading(true);
 
         const patientId = appContext.patientFhirId;
-        const familyMember = new Resources.r4.FamilyMemberHistory(patientId, "Father");  // TODO: Pass relationship
-        familyMember.name = "John";
-        familyMember.sex = Resources.r4.AdministrativeGender.Male;
-        familyMember.ageAge = Resources.r4.Age.fromYears(60);
+        const familyMember: r4.FamilyMemberHistory = {
+            resourceType: "FamilyMemberHistory",
+            status: "completed",
+            patient: { reference: `Patient/${patientId}` },
+            relationship: { text: "Father", coding: [{ code: "FTH", display: "Father" }] },
+            name: "John",
+            sex: Resources.r4.AdministrativeGender.Male,
+            ageAge: Resources.r4.Age.fromYears(60)
+        };
+
         await createFamilyMember(familyMember);
 
         await loadFamilyHistory();

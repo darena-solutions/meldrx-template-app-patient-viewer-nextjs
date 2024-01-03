@@ -18,7 +18,12 @@ export interface IFamilyMemberHistoryEditDialogProps {
 }
 
 function getDefault(patientId: string): r4.FamilyMemberHistory {
-    return new Resources.r4.FamilyMemberHistory(patientId, "FamilyMember");
+    return {
+        resourceType: "FamilyMemberHistory",
+        status: "completed",
+        patient: { reference: `Patient/${patientId}` },
+        relationship: { text: "FamilyMember", coding: [{ code: "FAMMEMB" }] },
+    };
 }
 
 function copy(familyMemberHistory: r4.FamilyMemberHistory): r4.FamilyMemberHistory {
