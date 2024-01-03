@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import * as r4 from "fhir/r4";
-import { Resources } from "@meldrx/meldrx-fhir-client";
+import { formatRange, parseRange } from "@/lib/utils/fhir-utils";
 
 export interface IAgeRangeEditProps {
     placeholder?: string;
@@ -11,15 +11,15 @@ export interface IAgeRangeEditProps {
 
 const AgeRangeEdit: React.FC<IAgeRangeEditProps> = (props: IAgeRangeEditProps) => {
     const [, setRangeValue] = useState<r4.Range | undefined>(props.value);
-    const [rangeText, setRangeText] = useState<string>((props.value) ? Resources.r4.Range.toAgeString(props.value, false) : "");
+    const [rangeText, setRangeText] = useState<string>((props.value) ? formatRange(props.value) : "");
 
     const onChange = useCallback((e: any) => {
         const s = e.target.value;
 
         // Try to parse the range. If we can, then update the value and reformat.
         // If we can't, erase the value and leave the format as-is.
-        const range = Resources.r4.Range.fromAgeString(s);   // Can be undefined
-        let text = (range) ? Resources.r4.Range.toAgeString(range, false) : s;
+        const range = parseRange(s);
+        let text = (range) ? formatRange(range) : s;
 
         // Update state...
         setRangeValue(range);

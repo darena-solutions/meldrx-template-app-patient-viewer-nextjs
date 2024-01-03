@@ -3,7 +3,7 @@ import { Card, Text } from "@mantine/core";
 import HumanNameView from "./HumanNameView";
 import AddressView from "./AddressView";
 import * as r4 from "fhir/r4";
-import { Resources, DateTimeUtils } from "@meldrx/meldrx-fhir-client";
+import { getOfficialNameForPatient, getHomeAddressForPatient, getBirthDateForPatient, getAgeFromBirthDate } from "@/lib/utils/fhir-utils";
 
 export interface IPatientHeaderProps { patient?: r4.Patient };
 export default function PatientHeader(props: IPatientHeaderProps) {
@@ -11,8 +11,8 @@ export default function PatientHeader(props: IPatientHeaderProps) {
     if (!props.patient) { return <div />; }
     if (!props.patient.name) { return <div />; }
 
-    const officialName = Resources.r4.Patient.getOfficialName(props.patient);
-    const homeAddress = Resources.r4.Patient.getHomeAddress(props.patient);
+    const officialName = getOfficialNameForPatient(props.patient);
+    const homeAddress = getHomeAddressForPatient(props.patient);
 
     return (
         <Card shadow="lg">
@@ -54,8 +54,8 @@ function SexAgeDOB(props: ISexAgeDOBProps) {
     // If patient has DOB, build that element...
     let elAgeDOB = null;
     if (props.patient.birthDate) {
-        const dob = Resources.r4.Patient.getBirthDate(props.patient);
-        const age = (dob) ? DateTimeUtils.getAgeFromDOB(dob) : "Unknown";
+        const dob = getBirthDateForPatient(props.patient);
+        const age = (dob) ? getAgeFromBirthDate(dob) : "Unknown";
 
         elAgeDOB = (
             <>{', '}
