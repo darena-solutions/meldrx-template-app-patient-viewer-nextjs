@@ -1,6 +1,6 @@
 export default interface IMeldRxLaunchData {
     clientId: string;
-    workspaceId: string;
+    workspaceUrl: string;
     scope: string;
     authorityUrl: string;
     redirectUrl: string;

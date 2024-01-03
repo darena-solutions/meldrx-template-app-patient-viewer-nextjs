@@ -1,6 +1,6 @@
 {
   "name": "meldrx-template-app-patient-viewer-nextjs",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "description": "Patient Viewer MeldRx Template App using NextJS",
   "author": "Eric Morgan",
