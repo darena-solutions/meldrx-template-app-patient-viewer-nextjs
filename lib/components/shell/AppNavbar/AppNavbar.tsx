@@ -84,7 +84,6 @@ export default function AppNavbar({ closeNavbar }: AppNavbarProps): JSX.Element 
     { display: "Allergies",         href: "/patient-sphere/patient/allergies",       icon: <IconPlant className={classes.linkIcon} /> },
     { display: "Conditions",        href: "/patient-sphere/patient/conditions",      icon: <IconVirus className={classes.linkIcon} /> },
     { display: "Immunizations",     href: "/patient-sphere/patient/immunizations",   icon: <IconVaccine className={classes.linkIcon} /> },
-    { display: "Family History",    href: "/patient-sphere/patient/family-history",  icon: <IconUsersGroup className={classes.linkIcon} /> },
   ];
 
   const tools: IMenuItem[] = [

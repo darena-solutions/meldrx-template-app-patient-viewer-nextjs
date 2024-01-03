@@ -1,6 +1,6 @@
 import React, { useState, useCallback } from "react";
 import * as r4 from "fhir/r4";
-import { Resources } from "@meldrx/meldrx-fhir-client";
+import { formatQuantity, parseQuantity } from "@/lib/utils/fhir-utils";
 
 export interface IQuantityEditProps {
     placeholder?: string;
@@ -10,15 +10,15 @@ export interface IQuantityEditProps {
 }
 export const QuantityEdit: React.FC<IQuantityEditProps> = (props) => {
     const [, setQuantityValue] = useState<r4.Quantity | undefined>(props.value);
-    const [quantityText, setQuantityText] = useState<string>((props.value) ? Resources.r4.Quantity.toString(props.value) : "");
+    const [quantityText, setQuantityText] = useState<string>((props.value) ? formatQuantity(props.value) : "");
 
     const onChange = useCallback((e: any) => {
         const s = e.target.value;
 
         // Try to parse the value. If we can, then update the value and reformat.
         // If we can't, erase the value and leave the format as-is.
-        const quantity = Resources.r4.Quantity.fromString(s);   // Can be undefined
-        let text = (quantity) ? Resources.r4.Quantity.toString(quantity) : s;
+        const quantity = parseQuantity(s);
+        let text = (quantity) ? formatQuantity(quantity) : s;
 
         // Allow users to enter decimals and spaces (for the unit)...
         if (s.endsWith(".")) { text = s; }

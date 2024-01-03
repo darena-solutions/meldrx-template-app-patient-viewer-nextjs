@@ -1,6 +1,6 @@
 import React from 'react';
 import * as r4 from "fhir/r4";
-import { Resources } from "@meldrx/meldrx-fhir-client";
+import { formatAddress } from '@/lib/utils/fhir-utils';
 
 export interface IAddressViewProps { address?: r4.Address };
 export function AddressView(props: IAddressViewProps) {
@@ -20,7 +20,7 @@ function getCityStateZipElement(address: r4.Address): JSX.Element
 {
     return (
         <div className="AddressView_cityStateContainer">
-            {Resources.r4.Address.toString(address)}
+            {formatAddress(address)}
         </div>
     );
 }

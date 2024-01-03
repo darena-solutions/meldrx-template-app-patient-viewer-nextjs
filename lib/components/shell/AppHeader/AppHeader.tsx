@@ -2,9 +2,9 @@ import React, { useState, useContext } from 'react';
 import { useRouter } from 'next/navigation';
 import { createStyles, Loader, Group, Header, Menu, Stack, Text, UnstyledButton, Center } from '@mantine/core';
 import { IconChevronDown, IconUser } from '@tabler/icons-react';
-import { Resources } from "@meldrx/meldrx-fhir-client";
 import { AppContext } from '@/lib/hooks/AppContext/AppContext';
 import Logo from '@/lib/components/logo/Logo';
+import { formatName, getOfficialNameForPatient } from '@/lib/utils/fhir-utils';
 
 const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "";
 const isTestMode = baseUrl.indexOf("localhost") > -1;
@@ -66,9 +66,9 @@ export default function AppHeader({ navbarToggle }: AppHeaderProps): JSX.Element
     const appContext = useContext(AppContext);
 
     const patientName = (appContext.patient)
-      ? Resources.r4.Patient.getOfficialName(appContext.patient)
+      ? getOfficialNameForPatient(appContext.patient)
       : null;
-    const patientNameDisplay = (patientName) ? Resources.r4.HumanName.toString(patientName) : "Unknown";
+    const patientNameDisplay = (patientName) ? formatName(patientName) : "Unknown";
 
     return (
     <Header height={80} p={8} style={{ zIndex: 101 }}>
